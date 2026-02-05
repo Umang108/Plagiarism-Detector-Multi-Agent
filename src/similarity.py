@@ -146,13 +146,14 @@ class AdvancedSemanticMatcher:
         # -------------------------------------------------
         if not paper_scores:
             return {
-                "overall_overlap_pct": None,
-                "novelty_score": None,
+                "overall_overlap_pct": 0.0,
+                "novelty_score": 100.0,
                 "total_papers_analyzed": 0,
                 "total_high_risk_matches": 0,
                 "paper_breakdown": {},
-                "risk_assessment": "UNKNOWN"
+                "risk_assessment": "LOW"
             }
+
 
         overall_overlap = float(
             np.mean([ps["overlap_percentage"] for ps in paper_scores.values()])

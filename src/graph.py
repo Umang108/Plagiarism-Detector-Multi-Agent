@@ -124,7 +124,7 @@ def agent4_similarity_matching(state: PlagiarismAnalysisState) -> PlagiarismAnal
     state["matches_by_paper"] = {}
     for paper_url, concepts in state["internet_concepts"].items():
         matcher.embed_concepts(concepts, paper_url)
-        matches = matcher.cross_similarity_analysis(threshold=0.7)
+        matches = matcher.cross_similarity_analysis(similarity_threshold=0.7)
         state["matches_by_paper"][paper_url] = matches.get(paper_url, [])
     
     print(f"Found matches across {len(state['internet_concepts'])} papers")
@@ -170,7 +170,7 @@ def agent5_risk_scoring_report(state: PlagiarismAnalysisState) -> PlagiarismAnal
                 matching_concepts=[{
                     "user": str(m["user_concept"]), 
                     "internet": str(m["matched_concept"]),
-                    "score": float(m["similarity_score"])
+                    "score": str(m["similarity_score"])  # Convert float to string
                 } for m in paper_matches[:8]],
                 publication_year=None  # Extract from metadata in production
             ))
